@@ -1,0 +1,21 @@
+# Go workspace file
+go.work
+
+# Environment variables
+.env
+.tool-versions
+
+# IDE files
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS generated files
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
