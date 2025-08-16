@@ -115,7 +115,20 @@ The application uses environment variables for configuration:
 
 ## Database Schema
 
-### TODO
+```sql
+CREATE TABLE devices (
+    id VARCHAR(255) PRIMARY KEY,
+    name VARCHAR(255) NOT NULL,
+    brand VARCHAR(255) NOT NULL,
+    state VARCHAR(50) NOT NULL CHECK (state IN ('available', 'in-use', 'inactive')),
+    creation_time TIMESTAMP WITH TIME ZONE NOT NULL DEFAULT NOW()
+);
+
+-- Indexes for performance
+CREATE INDEX idx_devices_brand ON devices(brand);
+CREATE INDEX idx_devices_state ON devices(state);
+CREATE INDEX idx_devices_creation_time ON devices(creation_time);
+```
 
 ## Future Improvements
 
