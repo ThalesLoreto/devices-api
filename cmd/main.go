@@ -5,6 +5,7 @@ import (
 	"devices-api/internal/config"
 	"devices-api/internal/database"
 	"devices-api/internal/handler"
+	"devices-api/internal/middleware"
 	"devices-api/internal/repository"
 	"devices-api/internal/service"
 	"log"
@@ -40,6 +41,9 @@ func main() {
 	// Setup routes
 	router := setupRoutes(deviceHandler)
 
+	// Apply logging middleware to all routes
+	loggedRouter := middleware.LoggingMiddleware(router)
+
 	// Setup CORS
 	c := cors.New(cors.Options{
 		AllowedOrigins: []string{"*"},
@@ -50,7 +54,7 @@ func main() {
 	// Create server
 	server := &http.Server{
 		Addr:         cfg.Server.Host + ":" + cfg.Server.Port,
-		Handler:      c.Handler(router),
+		Handler:      c.Handler(loggedRouter),
 		ReadTimeout:  15 * time.Second,
 		WriteTimeout: 15 * time.Second,
 		IdleTimeout:  60 * time.Second,
