@@ -12,7 +12,7 @@ type Config struct {
 
 type ServerConfig struct {
 	Host string
-	Port int
+	Port string
 }
 
 type DatabaseConfig struct {
@@ -28,7 +28,7 @@ func Load() *Config {
 	return &Config{
 		Server: ServerConfig{
 			Host: getEnv("SERVER_HOST", "0.0.0.0"),
-			Port: getEnvAsInt("SERVER_PORT", 8080),
+			Port: getEnv("SERVER_PORT", "8080"),
 		},
 		Database: DatabaseConfig{
 			Host:     getEnv("DB_HOST", "localhost"),
